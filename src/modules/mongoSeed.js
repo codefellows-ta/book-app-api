@@ -27,7 +27,7 @@ module.exports = async () => {
       bookTwo.save();
       bookThree.save();
 
-      // console.log('DB has been seeded');
+      console.log('DB has been seeded');
     } else {
       // console.log('DB is already seeded');
     }

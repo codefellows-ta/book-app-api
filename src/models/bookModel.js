@@ -7,5 +7,9 @@ const schema = new mongoose.Schema({
   email: {type: String, required: true },
 });
 
+schema.post('save', function(next){
+  console.log(`added new book ${this}`);
+});
+
 const Book = mongoose.model('Book', schema);
 module.exports = Book;

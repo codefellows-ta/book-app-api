@@ -3,8 +3,6 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
-
 const app = express();
 
 // middleware
@@ -12,30 +10,17 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// custom modules
-const getKey = require('./modules/getKey.js');
-
 // route handlers
 const getBooks = require('./routes/getBooks.js');
-
-// test route to ensure auth0 is connected and working properly
-app.get('/test', (req, res) => {
-  try{
-  let token = req.headers.authorization.split(' ')[1];
-  jwt.verify(token, getKey, {}, (err, decoded) => {
-    if (err) {
-      res.status(500).send('invalid token');
-    } else {
-      res.status(200).send(decoded.name)
-    }
-  });
-  } catch(err) {
-    console.log(err.message);
-  }
-});
+const addBooks = require('./routes/addBooks.js');
+const deleteBook = require('./routes/deleteBook.js');
 
 // get all books for logged in user
 app.get('/books', getBooks);
+// add new book
+app.post('/books', addBooks);
+//delete book
+app.delete('/books/:id', deleteBook);
 
 // exporting express app and server start function
 module.exports = {

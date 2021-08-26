@@ -11,11 +11,14 @@ module.exports = (req, res, next) => {
   try{ 
 
     const token = req.headers.authorization.split(' ')[1];
+    // console.log(token);
+
     jwt.verify(token, getKey, (err, decoded) => {
       if(err) {
         res.status(500).json('invalid token');
       } else {
-        let email = req.query.email;
+        // console.log(decoded );
+        let email = decoded.email;
         Book.find( { email }, (err, results) => {
           if(err) {
             res.status(500).send('Resource not found in database');
