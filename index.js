@@ -8,18 +8,20 @@ const mongoose = require('mongoose');
 // function to seed database if empty
 const seed = require('./src/modules/mongoSeed.js');
 
-const uri = process.env.mongo_uri;
+const uri = process.env.atlas_uri;
+// const uri = process.env.local_uri
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 };
 mongoose
   .connect(uri, options)
-  .then(console.log('mongoDB connected'))
-  .then(seed())
   .catch(err => {
     console.log(err.reason);
     mongoose.disconnect();
-  });
+  })
+  .then(console.log('mongoDB connected'))
+  .then(seed());
 
 server.start(process.env.PORT || 3001);

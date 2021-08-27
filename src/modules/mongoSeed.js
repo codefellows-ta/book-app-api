@@ -23,15 +23,15 @@ module.exports = async () => {
         email: 'pennockjoe@gmail.com',
       })
 
-      bookOne.save();
-      bookTwo.save();
-      bookThree.save();
+      await bookOne.save();
+      await bookTwo.save();
+      await bookThree.save();
 
       console.log('DB has been seeded');
     } else {
       // console.log('DB is already seeded');
     }
   } catch(err) {
-    console.error(err.message);
+    console.error(err);
   };
 };

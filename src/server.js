@@ -11,16 +11,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // route handlers
-const getBooks = require('./routes/getBooks.js');
-const addBooks = require('./routes/addBooks.js');
-const deleteBook = require('./routes/deleteBook.js');
+const book = require('./modules/book.js');
 
 // get all books for logged in user
-app.get('/books', getBooks);
+app.get('/books', book.getBooks);
 // add new book
-app.post('/books', addBooks);
+app.post('/books', book.addBook);
+// update a book
+app.put('/books/:id', book.updateBook)
 //delete book
-app.delete('/books/:id', deleteBook);
+app.delete('/books/:id', book.deleteBook);
 
 // exporting express app and server start function
 module.exports = {
